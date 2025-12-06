@@ -738,7 +738,6 @@ select.form-control {
 }
 
 /* END PERPLEXITY DESIGN SYSTEM */
-```css
 :root {
     /* Brand Colors - Gray Collar (mapped to design system) */
     --color-primary: var(--color-teal-500);
@@ -1342,4 +1341,3 @@ body {
         width: 100%;
     }
 }
-```
