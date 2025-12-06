@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gray Collar - Employer Dashboard</title>
+    <link rel="stylesheet" href="employer.css">
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="logo">🏢 Gray Collar</div>
+        <div class="user-section">
+            <span>Welcome, TechCorp India</span>
+            <div class="user-avatar">TC</div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="nav-item active" onclick="showPage('dashboard')">📊 Dashboard</div>
+            <div class="nav-item" onclick="showPage('post-job')">➕ Post a Job</div>
+            <div class="nav-item" onclick="showPage('browse-talent')">👥 Browse Talent</div>
+            <div class="nav-item" onclick="showPage('my-jobs')">📋 My Jobs</div>
+            <div class="nav-item" onclick="showPage('candidates')">💼 Candidates</div>
+            <div class="nav-item" onclick="showPage('messages')">💬 Messages</div>
+            <div style="border-top: 1px solid var(--color-border); margin-top: 16px; padding-top: 16px;">
+                <div class="nav-item" onclick="logout()">🚪 Logout</div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Dashboard Page -->
+            <div id="dashboard-page" class="page">
+                <div class="page-header">
+                    <h1>Dashboard</h1>
+                    <p>Overview of your hiring activity and metrics.</p>
+                </div>
+
+                <div class="cards-grid">
+                    <div class="card">
+                        <div class="card-icon">📢</div>
+                        <div class="card-title">Active Jobs</div>
+                        <div class="card-value">8</div>
+                        <div class="card-subtext">Actively hiring</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">👁️</div>
+                        <div class="card-title">Total Views</div>
+                        <div class="card-value">342</div>
+                        <div class="card-subtext">This month</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">📨</div>
+                        <div class="card-title">New Applications</div>
+                        <div class="card-value">24</div>
+                        <div class="card-subtext">Pending review</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">✅</div>
+                        <div class="card-title">Hired</div>
+                        <div class="card-value">5</div>
+                        <div class="card-subtext">This quarter</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Post Job Page -->
+            <div id="post-job-page" class="page" style="display: none;">
+                <div class="page-header">
+                    <h1>Post a New Job</h1>
+                    <p>Create and publish a job opportunity for retired professionals.</p>
+                </div>
+
+                <div class="card" style="max-width: 700px;">
+                    <form onsubmit="submitJob(event)">
+                        <div class="form-group">
+                            <label class="form-label">Job Title</label>
+                            <input type="text" class="form-input" placeholder="e.g., Senior Consultant" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Job Category</label>
+                            <select class="form-select" required>
+                                <option value="">Select Category</option>
+                                <option value="Consulting">Consulting</option>
+                                <option value="Mentoring">Mentoring</option>
+                                <option value="Part-time">Part-time</option>
+                                <option value="Contract">Contract</option>
+                                <option value="Flexible">Flexible</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Salary Range</label>
+                            <input type="text" class="form-input" placeholder="e.g., ₹50,000 - ₹80,000/month" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Job Description</label>
+                            <textarea class="form-textarea" placeholder="Describe the job role and responsibilities..." required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Key Requirements</label>
+                            <textarea class="form-textarea" placeholder="List key requirements (one per line)" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Experience Required (in years)</label>
+                            <input type="number" class="form-input" placeholder="e.g., 15" required>
+                        </div>
+                        <div style="display: flex; gap: 12px;">
+                            <button type="submit" class="btn btn-primary">Post Job</button>
+                            <button type="reset" class="btn btn-secondary">Clear</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Browse Talent Page -->
+            <div id="browse-talent-page" class="page" style="display: none;">
+                <div class="page-header">
+                    <h1>Browse Talent</h1>
+                    <p>Find and connect with experienced professionals.</p>
+                </div>
+
+                <div class="filter-bar">
+                    <input type="text" class="filter-input" placeholder="Search by name or skills..." id="talentSearch" onkeyup="filterTalent()">
+                    <select class="filter-select" id="experienceFilter" onchange="filterTalent()">
+                        <option value="">All Experience Levels</option>
+                        <option value="15">15+ years</option>
+                        <option value="20">20+ years</option>
+                        <option value="25">25+ years</option>
+                    </select>
+                </div>
+
+                <div class="talent-container" id="talentList">
+                    <!-- Talent profiles will be populated here -->
+                </div>
+            </div>
+
+            <!-- My Jobs Page -->
+            <div id="my-jobs-page" class="page" style="display: none;">
+                <div class="page-header">
+                    <h1>My Jobs</h1>
+                    <p>Manage your active and closed job postings.</p>
+                </div>
+
+                <div class="jobs-container" id="myJobsList">
+                    <!-- Jobs will be populated here -->
+                </div>
+            </div>
+
+            <!-- Candidates Page -->
+            <div id="candidates-page" class="page" style="display: none;">
+                <div class="page-header">
+                    <h1>Candidates</h1>
+                    <p>Review and manage applications from candidates.</p>
+                </div>
+
+                <div class="candidates-container" id="candidatesList">
+                    <!-- Candidates will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Candidate Profile Modal -->
+    <div class="modal" id="candidateModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Candidate Profile</h2>
+                <button class="modal-close" onclick="closeCandidateModal()">&times;</button>
+            </div>
+            <div id="candidateDetails"></div>
+            <div style="margin-top: 24px; display: flex; gap: 12px;">
+                <button class="btn btn-primary" onclick="approveCandidate()">Approve</button>
+                <button class="btn btn-secondary" onclick="closeCandidateModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="employer.js"></script>
+</body>
+</html>
