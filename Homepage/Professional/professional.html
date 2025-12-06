@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gray Collar - Professional Dashboard</title>
+    <link rel="stylesheet" href="professional.css">
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="logo">🎓 Gray Collar</div>
+        <div class="user-section">
+            <span>Welcome, John</span>
+            <div class="user-avatar">JS</div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="nav-item active" onclick="showPage('dashboard')">📊 Dashboard</div>
+            <div class="nav-item" onclick="showPage('jobs')">💼 Browse Jobs</div>
+            <div class="nav-item" onclick="showPage('applications')">📋 My Applications</div>
+            <div class="nav-item" onclick="showPage('profile')">👤 My Profile</div>
+            <div class="nav-item" onclick="showPage('messages')">💬 Messages</div>
+            <div style="border-top: 1px solid var(--color-border); margin-top: 16px; padding-top: 16px;">
+                <div class="nav-item" onclick="logout()">🚪 Logout</div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Dashboard Page -->
+            <div id="dashboard-page" class="page">
+                <div class="page-header">
+                    <h1>Dashboard</h1>
+                    <p>Welcome back! Here's your activity overview.</p>
+                </div>
+
+                <div class="cards-grid">
+                    <div class="card">
+                        <div class="card-icon">📝</div>
+                        <div class="card-title">Active Applications</div>
+                        <div class="card-value">5</div>
+                        <div class="card-subtext">You have 2 new updates</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">⭐</div>
+                        <div class="card-title">Profile Views</div>
+                        <div class="card-value">28</div>
+                        <div class="card-subtext">This week</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">💬</div>
+                        <div class="card-title">New Messages</div>
+                        <div class="card-value">3</div>
+                        <div class="card-subtext">From recruiters</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Jobs Page -->
+            <div id="jobs-page" class="page" style="display: none;">
+                <div class="page-header">
+                    <h1>Browse Jobs</h1>
+                    <p>Find opportunities that match your skills and experience.</p>
+                </div>
+
+                <div class="filter-bar">
+                    <input type="text" class="filter-input" placeholder="Search jobs..." id="searchInput" onkeyup="filterJobs()">
+                    <select class="filter-select" id="categoryFilter" onchange="filterJobs()">
+                        <option value="">All Categories</option>
+                        <option value="Consulting">Consulting</option>
+                        <option value="Mentoring">Mentoring</option>
+                        <option value="Part-time">Part-time</option>
+                    </select>
+                </div>
+
+                <div class="jobs-container" id="jobsList">
+                    <!-- Jobs will be populated here -->
+                </div>
+            </div>
+
+            <!-- Applications Page -->
+            <div id="applications-page" class="page" style="display: none;">
+                <div class="page-header">
+                    <h1>My Applications</h1>
+                    <p>Track all your job applications and their status.</p>
+                </div>
+
+                <div class="jobs-container" id="applicationsList">
+                    <!-- Applications will be populated here -->
+                </div>
+            </div>
+
+            <!-- Profile Page -->
+            <div id="profile-page" class="page" style="display: none;">
+                <div class="page-header">
+                    <h1>My Profile</h1>
+                    <p>Manage your professional information.</p>
+                </div>
+
+                <div class="card" style="max-width: 600px;">
+                    <div class="form-group">
+                        <div class="form-label">Full Name</div>
+                        <input type="text" class="form-input" value="John Smith" readonly>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-label">Email</div>
+                        <input type="email" class="form-input" value="john@example.com" readonly>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-label">Professional Summary</div>
+                        <textarea class="form-textarea">Experienced project manager with 25+ years in IT sector. Expertise in team leadership, process optimization, and strategic planning.</textarea>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-label">Skills</div>
+                        <input type="text" class="form-input" value="Project Management, Leadership, Strategic Planning">
+                    </div>
+                    <button class="btn btn-primary">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Job Details Modal -->
+    <div class="modal" id="jobModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Job Details</h2>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div id="jobDetails"></div>
+            <div style="margin-top: 24px; display: flex; gap: 12px;">
+                <button class="btn btn-primary" onclick="applyJob()">Apply Now</button>
+                <button class="btn btn-secondary" onclick="closeModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="professional.js"></script>
+</body>
+</html>
