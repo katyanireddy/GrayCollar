@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up as Employee - GrayCollar</title>
+    <link rel="stylesheet" href="styles-common.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-handshake"></i>
+                <span>GrayCollar</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="auth-container">
+        <div class="auth-box">
+            <div class="auth-header">
+                <h1>Join as Job Seeker</h1>
+                <p>Find flexible work that fits your lifestyle</p>
+            </div>
+
+            <div class="signup-tabs">
+                <button class="tab-btn active" data-tab="personal">Personal Info</button>
+                <button class="tab-btn" data-tab="professional">Professional</button>
+                <button class="tab-btn" data-tab="security">Security</button>
+            </div>
+
+            <form class="auth-form signup-form" id="signupForm">
+                <!-- Personal Info Tab -->
+                <div class="form-tab active" id="personal-tab">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>First Name *</label>
+                            <input type="text" placeholder="First Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name *</label>
+                            <input type="text" placeholder="Last Name" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email Address *</label>
+                        <input type="email" placeholder="your@email.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Phone Number *</label>
+                        <input type="tel" placeholder="+91 XXXXX XXXXX" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Age *</label>
+                            <input type="number" placeholder="Age" min="50" required>
+                        </div>
+                        <div class="form-group">
+                            <label>City *</label>
+                            <input type="text" placeholder="Your City" required>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn-primary btn-full next-btn" onclick="nextTab('professional')">
+                        Next <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <!-- Professional Info Tab -->
+                <div class="form-tab" id="professional-tab">
+                    <div class="form-group">
+                        <label>Current/Previous Occupation *</label>
+                        <input type="text" placeholder="e.g., Sales Manager" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Total Experience (Years) *</label>
+                        <select required>
+                            <option value="">Select Experience</option>
+                            <option value="fresher">Fresher (0-2 years)</option>
+                            <option value="1-3">1-3 Years</option>
+                            <option value="3-5">3-5 Years</option>
+                            <option value="5-10">5-10 Years</option>
+                            <option value="10-20">10-20 Years</option>
+                            <option value="20+">20+ Years</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Key Skills (Add up to 5) *</label>
+                        <div class="skills-input-group">
+                            <input type="text" placeholder="Type skill and press Enter" id="skillInputEmp">
+                            <div class="skills-tags" id="skillsTagsEmp"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Preferred Job Type *</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox"> Full-time</label>
+                            <label><input type="checkbox"> Part-time</label>
+                            <label><input type="checkbox"> Contract</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Preferred Work Location *</label>
+                        <input type="text" placeholder="e.g., Bangalore, Remote" required>
+                    </div>
+
+                    <div class="form-navigation">
+                        <button type="button" class="btn-secondary btn-full prev-btn" onclick="prevTab('personal')">
+                            <i class="fas fa-arrow-left"></i> Back
+                        </button>
+                        <button type="button" class="btn-primary btn-full next-btn" onclick="nextTab('security')">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Security Tab -->
+                <div class="form-tab" id="security-tab">
+                    <div class="form-group">
+                        <label>Password *</label>
+                        <div class="password-input">
+                            <input type="password" placeholder="Create a strong password" required id="passwordEmp">
+                            <button type="button" class="toggle-password" onclick="togglePasswordEmp()">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <small class="password-hint">At least 8 characters with uppercase, lowercase, and numbers</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Confirm Password *</label>
+                        <div class="password-input">
+                            <input type="password" placeholder="Confirm password" required id="confirmPasswordEmp">
+                            <button type="button" class="toggle-password" onclick="toggleConfirmEmp()">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" required>
+                            I agree to the <a href="#" target="_blank">Terms of Service</a> and <a href="#" target="_blank">Privacy Policy</a>
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox">
+                            Send me job recommendations and updates
+                        </label>
+                    </div>
+
+                    <div class="form-navigation">
+                        <button type="button" class="btn-secondary btn-full prev-btn" onclick="prevTab('professional')">
+                            <i class="fas fa-arrow-left"></i> Back
+                        </button>
+                        <button type="submit" class="btn-primary btn-full">
+                            Create Account
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="auth-footer">
+                <p>Already have an account? <a href="login.html">Login here</a></p>
+                <p>Looking to hire? <a href="signup-employer.html">Sign up as Employer</a></p>
+            </div>
+        </div>
+
+        <div class="auth-side">
+            <div class="side-content">
+                <h2>Get Started in 3 Steps</h2>
+                <div class="steps-list">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Create Your Profile</h4>
+                            <p>Tell us about yourself and your experience</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Browse Jobs</h4>
+                            <p>Find opportunities that match your skills</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Apply & Get Hired</h4>
+                            <p>Connect with employers and start working</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-bottom">
+            <p>&copy; 2025 GrayCollar. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="scripts-common.js"></script>
+    <script>
+        // Tab Navigation
+        function nextTab(tabName) {
+            document.querySelectorAll('.form-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            
+            document.getElementById(tabName + '-tab').classList.add('active');
+            document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+        }
+
+        function prevTab(tabName) {
+            document.querySelectorAll('.form-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            
+            document.getElementById(tabName + '-tab').classList.add('active');
+            document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+        }
+
+        // Tab Buttons
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const tabName = e.target.getAttribute('data-tab');
+                document.querySelectorAll('.form-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                
+                document.getElementById(tabName + '-tab').classList.add('active');
+                e.target.classList.add('active');
+            });
+        });
+
+        // Password Toggle
+        function togglePasswordEmp() {
+            const input = document.getElementById('passwordEmp');
+            const btn = event.target.closest('button').querySelector('i');
+            if (input.type === 'password') {
+                input.type = 'text';
+                btn.classList.remove('fa-eye');
+                btn.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                btn.classList.remove('fa-eye-slash');
+                btn.classList.add('fa-eye');
+            }
+        }
+
+        function toggleConfirmEmp() {
+            const input = document.getElementById('confirmPasswordEmp');
+            const btn = event.target.closest('button').querySelector('i');
+            if (input.type === 'password') {
+                input.type = 'text';
+                btn.classList.remove('fa-eye');
+                btn.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                btn.classList.remove('fa-eye-slash');
+                btn.classList.add('fa-eye');
+            }
+        }
+
+        // Skills Input
+        document.getElementById('skillInputEmp').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const skill = e.target.value.trim();
+                if (skill) {
+                    const tagsContainer = document.getElementById('skillsTagsEmp');
+                    const tag = document.createElement('span');
+                    tag.className = 'skill-tag';
+                    tag.innerHTML = `${skill} <i class="fas fa-times" onclick="this.parentElement.remove()"></i>`;
+                    tagsContainer.appendChild(tag);
+                    e.target.value = '';
+                }
+            }
+        });
+
+        // Form Submit
+        document.getElementById('signupForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Account created successfully! Redirecting to login...');
+            window.location.href = 'login.html';
+        });
+    </script>
+</body>
+</html>
