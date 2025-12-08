@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Dashboard - GrayCollar</title>
+    <link rel="stylesheet" href="styles-common.css">
+    <link rel="stylesheet" href="employee-dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar (Logged In Variant) -->
+    <nav class="navbar navbar-logged-in">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-handshake"></i>
+                <span>GrayCollar</span>
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Search jobs...">
+                <i class="fas fa-search"></i>
+            </div>
+            <div class="nav-right">
+                <button class="notification-btn">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">3</span>
+                </button>
+                <div class="account-dropdown">
+                    <button class="account-btn" onclick="toggleAccountMenu()">
+                        <div class="avatar">RK</div>
+                        <span>Rajesh Kumar</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-menu" id="accountMenu">
+                        <a href="#profile"><i class="fas fa-user"></i> My Profile</a>
+                        <a href="#settings"><i class="fas fa-cog"></i> Settings</a>
+                        <a href="#"><i class="fas fa-question-circle"></i> Help</a>
+                        <hr>
+                        <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Layout -->
+    <div class="dashboard-wrapper">
+        <!-- Sidebar Navigation (Employee Variant) -->
+        <aside class="sidebar employee-sidebar">
+            <div class="sidebar-header">
+                <h3>Menu</h3>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#dashboard" class="nav-item active" onclick="switchPage('dashboard')">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#jobs" class="nav-item" onclick="switchPage('jobs')">
+                    <i class="fas fa-briefcase"></i>
+                    <span>Find Jobs</span>
+                </a>
+                <a href="#applications" class="nav-item" onclick="switchPage('applications')">
+                    <i class="fas fa-file-alt"></i>
+                    <span>My Applications</span>
+                </a>
+                <a href="#saved" class="nav-item" onclick="switchPage('saved')">
+                    <i class="fas fa-bookmark"></i>
+                    <span>Saved Jobs</span>
+                </a>
+                <a href="#profile" class="nav-item" onclick="switchPage('profile')">
+                    <i class="fas fa-user-circle"></i>
+                    <span>My Profile</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#help"><i class="fas fa-question-circle"></i> Help & Support</a>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- DASHBOARD PAGE -->
+            <div class="page" id="dashboard-page" style="display: block;">
+                <div class="page-header">
+                    <div class="header-content">
+                        <h1>Welcome back, Rajesh! 👋</h1>
+                        <p>Here's what's happening with your job search</p>
+                    </div>
+                </div>
+
+                <!-- Profile Completion Card -->
+                <section class="section">
+                    <div class="completion-card">
+                        <div class="completion-content">
+                            <h3>Complete Your Profile</h3>
+                            <p>80% complete - Add more details to attract employers</p>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 80%;"></div>
+                            </div>
+                            <a href="#profile" class="btn-link">Complete Now →</a>
+                        </div>
+                        <div class="completion-graphic">
+                            <i class="fas fa-clipboard-list"></i>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Stats Section -->
+                <section class="section">
+                    <h2>Your Activity</h2>
+                    <div class="stats-grid">
+                        <!-- Stat Card Component -->
+                        <div class="stat-card">
+                            <div class="stat-icon applications">
+                                <i class="fas fa-paper-plane"></i>
+                            </div>
+                            <div class="stat-content">
+                                <p class="stat-label">Applications</p>
+                                <p class="stat-value">12</p>
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon shortlisted">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="stat-content">
+                                <p class="stat-label">Shortlisted</p>
+                                <p class="stat-value">4</p>
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon interviews">
+                                <i class="fas fa-calendar"></i>
+                            </div>
+                            <div class="stat-content">
+                                <p class="stat-label">Interviews</p>
+                                <p class="stat-value">2</p>
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon saved">
+                                <i class="fas fa-bookmark"></i>
+                            </div>
+                            <div class="stat-content">
+                                <p class="stat-label">Saved Jobs</p>
+                                <p class="stat-value">8</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Recommended Jobs Section -->
+                <section class="section">
+                    <div class="section-header">
+                        <h2>Recommended For You</h2>
+                        <a href="#jobs" class="link-text" onclick="switchPage('jobs')">View All →</a>
+                    </div>
+
+                    <div class="jobs-grid">
+                        <!-- Job Card Component -->
+                        <div class="job-card">
+                            <div class="job-card-header">
+                                <h3>Senior Sales Executive</h3>
+                                <button class="btn-icon" onclick="saveJob(1)">
+                                    <i class="far fa-bookmark"></i>
+                                </button>
+                            </div>
+                            <div class="job-card-meta">
+                                <span class="company">TechCorp Solutions</span>
+                                <span class="location"><i class="fas fa-map-marker-alt"></i> Bangalore, India</span>
+                            </div>
+                            <p class="job-description">Leading sales team and achieving quarterly targets. We're looking for an experienced professional...</p>
+                            <div class="job-card-footer">
+                                <div class="job-details">
+                                    <span class="badge salary">₹45K - ₹60K</span>
+                                    <span class="badge type">Full-time</span>
+                                    <span class="badge experience">3-5 Years</span>
+                                </div>
+                                <button class="btn-primary btn-sm" onclick="applyJob(1)">Apply Now</button>
+                            </div>
+                        </div>
+
+                        <div class="job-card">
+                            <div class="job-card-header">
+                                <h3>Delivery Manager</h3>
+                                <button class="btn-icon" onclick="saveJob(2)">
+                                    <i class="far fa-bookmark"></i>
+                                </button>
+                            </div>
+                            <div class="job-card-meta">
+                                <span class="company">LogisticsHub</span>
+                                <span class="location"><i class="fas fa-map-marker-alt"></i> Mumbai, India</span>
+                            </div>
+                            <p class="job-description">Manage delivery operations and ensure customer satisfaction. Join our growing network of professionals...</p>
+                            <div class="job-card-footer">
+                                <div class="job-details">
+                                    <span class="badge salary">₹30K - ₹40K</span>
+                                    <span class="badge type">Full-time</span>
+                                    <span class="badge experience">1-3 Years</span>
+                                </div>
+                                <button class="btn-primary btn-sm" onclick="applyJob(2)">Apply Now</button>
+                            </div>
+                        </div>
+
+                        <div class="job-card">
+                            <div class="job-card-header">
+                                <h3>Customer Service Officer</h3>
+                                <button class="btn-icon" onclick="saveJob(3)">
+                                    <i class="far fa-bookmark"></i>
+                                </button>
+                            </div>
+                            <div class="job-card-meta">
+                                <span class="company">CustomerFirst Inc</span>
+                                <span class="location"><i class="fas fa-map-marker-alt"></i> Remote</span>
+                            </div>
+                            <p class="job-description">Support customer inquiries via chat, email, and phone. Work flexible hours from home...</p>
+                            <div class="job-card-footer">
+                                <div class="job-details">
+                                    <span class="badge salary">₹25K - ₹35K</span>
+                                    <span class="badge type">Part-time</span>
+                                    <span class="badge experience">Fresher</span>
+                                </div>
+                                <button class="btn-primary btn-sm" onclick="applyJob(3)">Apply Now</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Recent Activity Section -->
+                <section class="section">
+                    <h2>Recent Activity</h2>
+                    <div class="activity-feed">
+                        <div class="activity-item">
+                            <div class="activity-icon success">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="activity-content">
+                                <p><strong>You were shortlisted</strong> for Senior Sales Executive at TechCorp</p>
+                                <span class="activity-time">2 days ago</span>
+                            </div>
+                        </div>
+
+                        <div class="activity-item">
+                            <div class="activity-icon application">
+                                <i class="fas fa-paper-plane"></i>
+                            </div>
+                            <div class="activity-content">
+                                <p><strong>You applied</strong> for Delivery Manager at LogisticsHub</p>
+                                <span class="activity-time">3 days ago</span>
+                            </div>
+                        </div>
+
+                        <div class="activity-item">
+                            <div class="activity-icon saved">
+                                <i class="fas fa-bookmark"></i>
+                            </div>
+                            <div class="activity-content">
+                                <p><strong>You saved</strong> Customer Service Officer at CustomerFirst Inc</p>
+                                <span class="activity-time">1 week ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- JOBS PAGE -->
+            <div class="page" id="jobs-page" style="display: none;">
+                <div class="page-header">
+                    <h1>Find Jobs</h1>
+                    <p>Discover opportunities that match your skills</p>
+                </div>
+
+                <!-- Search and Filters -->
+                <section class="section">
+                    <div class="search-filters">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" placeholder="Job title, company, or keyword...">
+                        </div>
+                        <button class="btn-secondary btn-sm" onclick="toggleFilters()">
+                            <i class="fas fa-filter"></i> Filters
+                        </button>
+                    </div>
+
+                    <!-- Filters Panel (Hidden by default) -->
+                    <div class="filters-panel" id="filtersPanel" style="display: none;">
+                        <div class="filter-group">
+                            <label>Location</label>
+                            <select class="form-control">
+                                <option>All Locations</option>
+                                <option>Bangalore</option>
+                                <option>Mumbai</option>
+                                <option>Delhi</option>
+                                <option>Remote</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label>Work Type</label>
+                            <div class="checkbox-group">
+                                <label><input type="checkbox"> Full-time</label>
+                                <label><input type="checkbox"> Part-time</label>
+                                <label><input type="checkbox"> Contract</label>
+                            </div>
+                        </div>
+
+                        <div class="filter-group">
+                            <label>Experience Level</label>
+                            <select class="form-control">
+                                <option>All Levels</option>
+                                <option>Fresher</option>
+                                <option>1-3 Years</option>
+                                <option>3-5 Years</option>
+                                <option>5+ Years</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label>Salary Range</label>
+                            <input type="range" min="20000" max="100000" step="10000" class="form-control">
+                            <p>₹20,000 - ₹100,000</p>
+                        </div>
+
+                        <button class="btn-primary btn-full">Apply Filters</button>
+                    </div>
+                </section>
+
+                <!-- Jobs List -->
+                <section class="section">
+                    <div class="jobs-list">
+                        <!-- Repeat job cards here -->
+                        <div class="job-card job-card-list">
+                            <div class="job-card-header">
+                                <div>
+                                    <h3>Senior Sales Executive</h3>
+                                    <span class="company">TechCorp Solutions</span>
+                                </div>
+                                <button class="btn-icon" onclick="saveJob(1)">
+                                    <i class="far fa-bookmark"></i>
+                                </button>
+                            </div>
+                            <div class="job-card-meta-list">
+                                <span><i class="fas fa-map-marker-alt"></i> Bangalore, India</span>
+                                <span><i class="fas fa-briefcase"></i> Full-time</span>
+                                <span><i class="fas fa-rupee-sign"></i> ₹45K - ₹60K</span>
+                            </div>
+                            <p class="job-description">Leading sales team and achieving quarterly targets...</p>
+                            <div class="job-card-footer-list">
+                                <div class="skills-tags">
+                                    <span class="tag">Sales</span>
+                                    <span class="tag">Negotiation</span>
+                                    <span class="tag">CRM</span>
+                                </div>
+                                <button class="btn-primary btn-sm" onclick="applyJob(1)">View & Apply</button>
+                            </div>
+                        </div>
+
+                        <div class="job-card job-card-list">
+                            <div class="job-card-header">
+                                <div>
+                                    <h3>Delivery Manager</h3>
+                                    <span class="company">LogisticsHub</span>
+                                </div>
+                                <button class="btn-icon" onclick="saveJob(2)">
+                                    <i class="far fa-bookmark"></i>
+                                </button>
+                            </div>
+                            <div class="job-card-meta-list">
+                                <span><i class="fas fa-map-marker-alt"></i> Mumbai, India</span>
+                                <span><i class="fas fa-briefcase"></i> Full-time</span>
+                                <span><i class="fas fa-rupee-sign"></i> ₹30K - ₹40K</span>
+                            </div>
+                            <p class="job-description">Manage delivery operations and ensure customer satisfaction...</p>
+                            <div class="job-card-footer-list">
+                                <div class="skills-tags">
+                                    <span class="tag">Logistics</span>
+                                    <span class="tag">Management</span>
+                                    <span class="tag">Operations</span>
+                                </div>
+                                <button class="btn-primary btn-sm" onclick="applyJob(2)">View & Apply</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- APPLICATIONS PAGE -->
+            <div class="page" id="applications-page" style="display: none;">
+                <div class="page-header">
+                    <h1>My Applications</h1>
+                    <p>Track the status of your job applications</p>
+                </div>
+
+                <!-- Status Tabs -->
+                <section class="section">
+                    <div class="status-tabs">
+                        <button class="tab-btn active" onclick="filterApplications('all')">All (12)</button>
+                        <button class="tab-btn" onclick="filterApplications('review')">Under Review (5)</button>
+                        <button class="tab-btn" onclick="filterApplications('shortlisted')">Shortlisted (4)</button>
+                        <button class="tab-btn" onclick="filterApplications('interview')">Interview (2)</button>
+                        <button class="tab-btn" onclick="filterApplications('rejected')">Rejected (1)</button>
+                    </div>
+                </section>
+
+                <!-- Applications List -->
+                <section class="section">
+                    <div class="applications-list">
+                        <!-- Application Card Component -->
+                        <div class="application-card">
+                            <div class="app-header">
+                                <div class="app-info">
+                                    <h3>Senior Sales Executive</h3>
+                                    <p class="company">TechCorp Solutions</p>
+                                </div>
+                                <span class="status-badge shortlisted">
+                                    <i class="fas fa-star"></i> Shortlisted
+                                </span>
+                            </div>
+                            <div class="app-meta">
+                                <span><strong>Applied:</strong> Dec 5, 2025</span>
+                                <span><strong>Response:</strong> Dec 7, 2025</span>
+                                <span><strong>Experience:</strong> 3-5 Years</span>
+                            </div>
+                            <div class="app-actions">
+                                <a href="#" class="link-text">View Job Details</a>
+                                <a href="#" class="link-text">Message Employer</a>
+                            </div>
+                        </div>
+
+                        <div class="application-card">
+                            <div class="app-header">
+                                <div class="app-info">
+                                    <h3>Delivery Manager</h3>
+                                    <p class="company">LogisticsHub</p>
+                                </div>
+                                <span class="status-badge review">
+                                    <i class="fas fa-clock"></i> Under Review
+                                </span>
+                            </div>
+                            <div class="app-meta">
+                                <span><strong>Applied:</strong> Dec 3, 2025</span>
+                                <span><strong>Response:</strong> Pending</span>
+                                <span><strong>Experience:</strong> 1-3 Years</span>
+                            </div>
+                            <div class="app-actions">
+                                <a href="#" class="link-text">View Job Details</a>
+                                <button class="btn-secondary btn-sm">Withdraw</button>
+                            </div>
+                        </div>
+
+                        <div class="application-card">
+                            <div class="app-header">
+                                <div class="app-info">
+                                    <h3>Customer Service Officer</h3>
+                                    <p class="company">CustomerFirst Inc</p>
+                                </div>
+                                <span class="status-badge interview">
+                                    <i class="fas fa-calendar"></i> Interview
+                                </span>
+                            </div>
+                            <div class="app-meta">
+                                <span><strong>Applied:</strong> Nov 28, 2025</span>
+                                <span><strong>Response:</strong> Nov 30, 2025</span>
+                                <span><strong>Interview:</strong> Dec 10, 2025</span>
+                            </div>
+                            <div class="app-actions">
+                                <a href="#" class="link-text">View Job Details</a>
+                                <button class="btn-primary btn-sm">Schedule Interview</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- PROFILE PAGE -->
+            <div class="page" id="profile-page" style="display: none;">
+                <div class="page-header">
+                    <h1>My Profile</h1>
+                    <p>Complete your profile to attract more employers</p>
+                </div>
+
+                <section class="section">
+                    <div class="profile-card">
+                        <div class="profile-header">
+                            <div class="profile-pic">
+                                <i class="fas fa-user-circle"></i>
+                            </div>
+                            <div class="profile-info">
+                                <h2>Rajesh Kumar</h2>
+                                <p>45 years old • Bangalore, India</p>
+                                <button class="btn-secondary btn-sm">Edit Profile</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Profile Sections -->
+                <section class="section">
+                    <div class="profile-section">
+                        <div class="section-header-inline">
+                            <h3>Personal Information</h3>
+                            <button class="btn-link">Edit</button>
+                        </div>
+                        <div class="profile-fields">
+                            <div class="field">
+                                <label>Email</label>
+                                <p>rajesh@example.com</p>
+                            </div>
+                            <div class="field">
+                                <label>Phone</label>
+                                <p>+91 98765 43210</p>
+                            </div>
+                            <div class="field">
+                                <label>Location</label>
+                                <p>Bangalore, India</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <div class="profile-section">
+                        <div class="section-header-inline">
+                            <h3>Professional Summary</h3>
+                            <button class="btn-link">Edit</button>
+                        </div>
+                        <p>Experienced sales professional with 8 years of expertise in team management, client relations, and achieving sales targets. Skilled in CRM systems, negotiation, and building long-term customer relationships.</p>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <div class="profile-section">
+                        <div class="section-header-inline">
+                            <h3>Skills</h3>
+                            <button class="btn-link">Edit</button>
+                        </div>
+                        <div class="skills-list">
+                            <span class="skill-badge">Sales Management</span>
+                            <span class="skill-badge">Negotiation</span>
+                            <span class="skill-badge">CRM</span>
+                            <span class="skill-badge">Team Leadership</span>
+                            <span class="skill-badge">Client Relations</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <div class="profile-section">
+                        <div class="section-header-inline">
+                            <h3>Experience</h3>
+                            <button class="btn-link">Add</button>
+                        </div>
+                        <div class="experience-item">
+                            <div class="exp-header">
+                                <h4>Senior Sales Executive</h4>
+                                <span class="exp-duration">2020 - Present (5 years)</span>
+                            </div>
+                            <p class="exp-company">TechCorp Solutions • Bangalore</p>
+                            <p class="exp-description">Led sales team of 10 professionals, achieved 150% of quarterly targets, and managed key client relationships.</p>
+                        </div>
+                        <div class="experience-item">
+                            <div class="exp-header">
+                                <h4>Sales Manager</h4>
+                                <span class="exp-duration">2015 - 2020 (5 years)</span>
+                            </div>
+                            <p class="exp-company">RetailFirst Inc • Bangalore</p>
+                            <p class="exp-description">Managed regional sales operations and trained new sales representatives.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <div class="profile-section">
+                        <div class="section-header-inline">
+                            <h3>Resume</h3>
+                            <button class="btn-link">Upload</button>
+                        </div>
+                        <div class="resume-box">
+                            <i class="fas fa-file-pdf"></i>
+                            <p><strong>Rajesh_Kumar_Resume.pdf</strong></p>
+                            <p class="text-gray">Uploaded on Dec 1, 2025</p>
+                            <button class="btn-secondary btn-sm">Replace</button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- SAVED JOBS PAGE -->
+            <div class="page" id="saved-page" style="display: none;">
+                <div class="page-header">
+                    <h1>Saved Jobs</h1>
+                    <p>8 jobs saved for later</p>
+                </div>
+
+                <section class="section">
+                    <div class="jobs-grid">
+                        <div class="job-card">
+                            <div class="job-card-header">
+                                <h3>Senior Sales Executive</h3>
+                                <button class="btn-icon" onclick="unsaveJob(1)">
+                                    <i class="fas fa-bookmark"></i>
+                                </button>
+                            </div>
+                            <div class="job-card-meta">
+                                <span class="company">TechCorp Solutions</span>
+                                <span class="location"><i class="fas fa-map-marker-alt"></i> Bangalore, India</span>
+                            </div>
+                            <p class="job-description">Leading sales team and achieving quarterly targets...</p>
+                            <div class="job-card-footer">
+                                <div class="job-details">
+                                    <span class="badge salary">₹45K - ₹60K</span>
+                                    <span class="badge type">Full-time</span>
+                                </div>
+                                <button class="btn-primary btn-sm" onclick="applyJob(1)">Apply Now</button>
+                            </div>
+                        </div>
+
+                        <div class="job-card">
+                            <div class="job-card-header">
+                                <h3>Sales Team Lead</h3>
+                                <button class="btn-icon" onclick="unsaveJob(5)">
+                                    <i class="fas fa-bookmark"></i>
+                                </button>
+                            </div>
+                            <div class="job-card-meta">
+                                <span class="company">EnterpriseInc</span>
+                                <span class="location"><i class="fas fa-map-marker-alt"></i> Delhi, India</span>
+                            </div>
+                            <p class="job-description">Lead a team of sales representatives. Achieve targets and mentor junior staff...</p>
+                            <div class="job-card-footer">
+                                <div class="job-details">
+                                    <span class="badge salary">₹50K - ₹70K</span>
+                                    <span class="badge type">Full-time</span>
+                                </div>
+                                <button class="btn-primary btn-sm" onclick="applyJob(5)">Apply Now</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="scripts-common.js"></script>
+    <script src="employee-dashboard.js"></script>
+</body>
+</html>
