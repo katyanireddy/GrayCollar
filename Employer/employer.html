@@ -3,179 +3,486 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gray Collar - Employer Dashboard</title>
+    <title>Employer Dashboard - GrayCollar</title>
     <link rel="stylesheet" href="employer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Header -->
-    <div class="header">
-        <div class="logo">🏢 Gray Collar</div>
-        <div class="user-section">
-            <span>Welcome, TechCorp India</span>
-            <div class="user-avatar">TC</div>
-        </div>
-    </div>
-
-    <!-- Main Container -->
-    <div class="container">
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <div class="nav-item active" onclick="showPage('dashboard')">📊 Dashboard</div>
-            <div class="nav-item" onclick="showPage('post-job')">➕ Post a Job</div>
-            <div class="nav-item" onclick="showPage('browse-talent')">👥 Browse Talent</div>
-            <div class="nav-item" onclick="showPage('my-jobs')">📋 My Jobs</div>
-            <div class="nav-item" onclick="showPage('candidates')">💼 Candidates</div>
-            <div class="nav-item" onclick="showPage('messages')">💬 Messages</div>
-            <div style="border-top: 1px solid var(--color-border); margin-top: 16px; padding-top: 16px;">
-                <div class="nav-item" onclick="logout()">🚪 Logout</div>
+    <!-- Top Navigation Bar -->
+    <nav class="top-nav">
+        <div class="nav-container">
+            <div class="nav-left">
+                <div class="company-info" id="companyInfo">
+                    <img src="https://ui-avatars.com/api/?name=TechCorp&background=D4945F&color=fff" alt="Company" class="company-logo">
+                    <span class="company-name">TechCorp Solutions</span>
+                </div>
+            </div>
+            <div class="nav-center">
+                <button class="post-job-btn" id="postJobBtn">
+                    <i class="fas fa-plus"></i> Post a Job
+                </button>
+            </div>
+            <div class="nav-right">
+                <div class="notification-group">
+                    <div class="notification-item" id="newApplications" title="New applications">
+                        <i class="fas fa-file-alt"></i>
+                        <span class="notification-badge">12</span>
+                    </div>
+                    <div class="notification-item" id="messages" title="Messages from candidates">
+                        <i class="fas fa-comments"></i>
+                        <span class="notification-badge">5</span>
+                    </div>
+                </div>
+                <div class="account-dropdown">
+                    <button class="account-btn" id="accountBtn">
+                        <i class="fas fa-user-circle"></i>
+                    </button>
+                    <div class="dropdown-menu" id="dropdownMenu">
+                        <a href="#" id="settingsLink">Account Settings</a>
+                        <a href="#" id="logoutLink">Logout</a>
+                    </div>
+                </div>
             </div>
         </div>
+    </nav>
 
-        <!-- Main Content -->
-        <div class="main-content">
+    <div class="main-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <h3><i class="fas fa-briefcase"></i> GrayCollar</h3>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#dashboard" class="nav-link active" data-page="dashboard">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#jobs" class="nav-link" data-page="jobs">
+                    <i class="fas fa-list"></i>
+                    <span>My Jobs</span>
+                </a>
+                <a href="#post-job" class="nav-link" data-page="post-job">
+                    <i class="fas fa-plus-circle"></i>
+                    <span>Post New Job</span>
+                </a>
+                <a href="#applicants" class="nav-link" data-page="applicants">
+                    <i class="fas fa-users"></i>
+                    <span>Applicants</span>
+                </a>
+                <a href="#shortlisted" class="nav-link" data-page="shortlisted">
+                    <i class="fas fa-star"></i>
+                    <span>Shortlisted</span>
+                </a>
+                <a href="#company" class="nav-link" data-page="company">
+                    <i class="fas fa-building"></i>
+                    <span>Company Profile</span>
+                </a>
+                <a href="#support" class="nav-link" data-page="support">
+                    <i class="fas fa-headset"></i>
+                    <span>Support</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <button class="logout-btn" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
             <!-- Dashboard Page -->
-            <div id="dashboard-page" class="page">
+            <div id="dashboard-page" class="page active">
                 <div class="page-header">
                     <h1>Dashboard</h1>
-                    <p>Overview of your hiring activity and metrics.</p>
+                    <p>Overview of your hiring activities</p>
                 </div>
 
-                <div class="cards-grid">
-                    <div class="card">
-                        <div class="card-icon">📢</div>
-                        <div class="card-title">Active Jobs</div>
-                        <div class="card-value">8</div>
-                        <div class="card-subtext">Actively hiring</div>
+                <!-- Overview Cards -->
+                <div class="overview-cards">
+                    <div class="card-stat">
+                        <div class="stat-icon active-jobs">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>5</h3>
+                            <p>Active Jobs</p>
+                        </div>
                     </div>
-                    <div class="card">
-                        <div class="card-icon">👁️</div>
-                        <div class="card-title">Total Views</div>
-                        <div class="card-value">342</div>
-                        <div class="card-subtext">This month</div>
+                    <div class="card-stat">
+                        <div class="stat-icon total-applicants">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>47</h3>
+                            <p>Total Applicants</p>
+                        </div>
                     </div>
-                    <div class="card">
-                        <div class="card-icon">📨</div>
-                        <div class="card-title">New Applications</div>
-                        <div class="card-value">24</div>
-                        <div class="card-subtext">Pending review</div>
+                    <div class="card-stat">
+                        <div class="stat-icon shortlisted">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>12</h3>
+                            <p>Shortlisted</p>
+                        </div>
                     </div>
-                    <div class="card">
-                        <div class="card-icon">✅</div>
-                        <div class="card-title">Hired</div>
-                        <div class="card-value">5</div>
-                        <div class="card-subtext">This quarter</div>
+                    <div class="card-stat">
+                        <div class="stat-icon interviews">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>3</h3>
+                            <p>Interviews Scheduled</p>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Post Job Page -->
-            <div id="post-job-page" class="page" style="display: none;">
-                <div class="page-header">
-                    <h1>Post a New Job</h1>
-                    <p>Create and publish a job opportunity for retired professionals.</p>
+                <!-- Quick Actions -->
+                <div class="quick-actions-employer">
+                    <button class="action-btn-emp" id="postNewJobQuick">
+                        <i class="fas fa-plus"></i>
+                        <span>Post New Job</span>
+                    </button>
+                    <button class="action-btn-emp" id="viewAllJobsQuick">
+                        <i class="fas fa-list"></i>
+                        <span>View All Jobs</span>
+                    </button>
+                    <button class="action-btn-emp" id="browseApplicantsQuick">
+                        <i class="fas fa-search"></i>
+                        <span>Browse Applicants</span>
+                    </button>
                 </div>
 
-                <div class="card" style="max-width: 700px;">
-                    <form onsubmit="submitJob(event)">
-                        <div class="form-group">
-                            <label class="form-label">Job Title</label>
-                            <input type="text" class="form-input" placeholder="e.g., Senior Consultant" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Job Category</label>
-                            <select class="form-select" required>
-                                <option value="">Select Category</option>
-                                <option value="Consulting">Consulting</option>
-                                <option value="Mentoring">Mentoring</option>
-                                <option value="Part-time">Part-time</option>
-                                <option value="Contract">Contract</option>
-                                <option value="Flexible">Flexible</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Salary Range</label>
-                            <input type="text" class="form-input" placeholder="e.g., ₹50,000 - ₹80,000/month" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Job Description</label>
-                            <textarea class="form-textarea" placeholder="Describe the job role and responsibilities..." required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Key Requirements</label>
-                            <textarea class="form-textarea" placeholder="List key requirements (one per line)" required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Experience Required (in years)</label>
-                            <input type="number" class="form-input" placeholder="e.g., 15" required>
-                        </div>
-                        <div style="display: flex; gap: 12px;">
-                            <button type="submit" class="btn btn-primary">Post Job</button>
-                            <button type="reset" class="btn btn-secondary">Clear</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <!-- Browse Talent Page -->
-            <div id="browse-talent-page" class="page" style="display: none;">
-                <div class="page-header">
-                    <h1>Browse Talent</h1>
-                    <p>Find and connect with experienced professionals.</p>
+                <!-- Recent Activity -->
+                <div class="recent-activity-emp">
+                    <h2>Recent Activity</h2>
+                    <div class="activity-feed" id="activityFeed">
+                        <!-- Activity items will be inserted here -->
+                    </div>
                 </div>
 
-                <div class="filter-bar">
-                    <input type="text" class="filter-input" placeholder="Search by name or skills..." id="talentSearch" onkeyup="filterTalent()">
-                    <select class="filter-select" id="experienceFilter" onchange="filterTalent()">
-                        <option value="">All Experience Levels</option>
-                        <option value="15">15+ years</option>
-                        <option value="20">20+ years</option>
-                        <option value="25">25+ years</option>
-                    </select>
-                </div>
-
-                <div class="talent-container" id="talentList">
-                    <!-- Talent profiles will be populated here -->
+                <!-- Active Jobs Summary -->
+                <div class="active-jobs-summary">
+                    <h2>Your Active Jobs</h2>
+                    <div class="jobs-summary-list" id="jobsSummaryList">
+                        <!-- Job summaries will be inserted here -->
+                    </div>
                 </div>
             </div>
 
             <!-- My Jobs Page -->
-            <div id="my-jobs-page" class="page" style="display: none;">
+            <div id="jobs-page" class="page">
                 <div class="page-header">
                     <h1>My Jobs</h1>
-                    <p>Manage your active and closed job postings.</p>
+                    <p>Manage all your job postings</p>
                 </div>
 
-                <div class="jobs-container" id="myJobsList">
-                    <!-- Jobs will be populated here -->
+                <div class="jobs-table-container">
+                    <table class="jobs-table">
+                        <thead>
+                            <tr>
+                                <th>Job Title</th>
+                                <th>Status</th>
+                                <th>Applicants</th>
+                                <th>Posted On</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="jobsTableBody">
+                            <!-- Jobs will be inserted here -->
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
-            <!-- Candidates Page -->
-            <div id="candidates-page" class="page" style="display: none;">
+            <!-- Post New Job Page -->
+            <div id="post-job-page" class="page">
                 <div class="page-header">
-                    <h1>Candidates</h1>
-                    <p>Review and manage applications from candidates.</p>
+                    <h1>Post a New Job</h1>
+                    <p>Create a new job posting</p>
                 </div>
 
-                <div class="candidates-container" id="candidatesList">
-                    <!-- Candidates will be populated here -->
+                <form class="job-form" id="jobForm">
+                    <div class="form-section">
+                        <h3>Job Details</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Job Title *</label>
+                                <input type="text" placeholder="e.g., Senior Sales Executive" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Category *</label>
+                                <select required>
+                                    <option value="">Select Category</option>
+                                    <option value="sales">Sales</option>
+                                    <option value="delivery">Delivery</option>
+                                    <option value="office">Office</option>
+                                    <option value="caregiver">Caregiver</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Location *</label>
+                                <input type="text" placeholder="e.g., Bangalore, India" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Employment Type *</label>
+                                <select required>
+                                    <option value="">Select Type</option>
+                                    <option value="full-time">Full-time</option>
+                                    <option value="part-time">Part-time</option>
+                                    <option value="contract">Contract</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Salary Range *</label>
+                                <input type="text" placeholder="e.g., ₹40,000 - ₹60,000" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Work Hours / Shift *</label>
+                                <input type="text" placeholder="e.g., 9 AM - 6 PM" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Number of Openings *</label>
+                                <input type="number" placeholder="e.g., 5" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Minimum Experience *</label>
+                                <select required>
+                                    <option value="">Select Experience</option>
+                                    <option value="fresher">Fresher</option>
+                                    <option value="1-3">1-3 Years</option>
+                                    <option value="3-5">3-5 Years</option>
+                                    <option value="5+">5+ Years</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Job Description</h3>
+                        <div class="form-group">
+                            <label>Description *</label>
+                            <textarea placeholder="Describe the job role, responsibilities, and what you're looking for..." rows="6" required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Requirements</h3>
+                        <div class="form-group">
+                            <label>Required Skills *</label>
+                            <div class="skills-input">
+                                <input type="text" placeholder="Type skill and press Enter" id="skillInput">
+                                <div class="skills-tags" id="skillsTags"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary" id="publishJobBtn">
+                            <i class="fas fa-check"></i> Publish Job
+                        </button>
+                        <button type="button" class="btn-secondary" id="saveDraftBtn">
+                            <i class="fas fa-save"></i> Save as Draft
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Applicants Page -->
+            <div id="applicants-page" class="page">
+                <div class="page-header">
+                    <h1>Applicants</h1>
+                    <p>Review and manage applicants</p>
                 </div>
+
+                <div class="filters-employer">
+                    <div class="filter-group">
+                        <label>Filter by Job</label>
+                        <select id="jobFilterApplicants">
+                            <option value="">All Jobs</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Filter by Status</label>
+                        <select id="statusFilterApplicants">
+                            <option value="">All Status</option>
+                            <option value="new">New</option>
+                            <option value="shortlisted">Shortlisted</option>
+                            <option value="rejected">Rejected</option>
+                            <option value="interview">Interview</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="applicants-list" id="applicantsList">
+                    <!-- Applicants will be inserted here -->
+                </div>
+            </div>
+
+            <!-- Shortlisted Page -->
+            <div id="shortlisted-page" class="page">
+                <div class="page-header">
+                    <h1>Shortlisted Candidates</h1>
+                    <p>Your shortlisted candidates across all jobs</p>
+                </div>
+
+                <div class="filters-employer">
+                    <div class="filter-group">
+                        <label>Filter by Job</label>
+                        <select id="jobFilterShortlisted">
+                            <option value="">All Jobs</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="shortlisted-list" id="shortlistedList">
+                    <!-- Shortlisted candidates will be inserted here -->
+                </div>
+            </div>
+
+            <!-- Company Profile Page -->
+            <div id="company-page" class="page">
+                <div class="page-header">
+                    <h1>Company Profile</h1>
+                    <p>Manage your company information</p>
+                </div>
+
+                <div class="company-profile-form">
+                    <div class="form-section">
+                        <h3>Company Information</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Company Name *</label>
+                                <input type="text" value="TechCorp Solutions" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Industry *</label>
+                                <select required>
+                                    <option value="">Select Industry</option>
+                                    <option value="technology">Technology</option>
+                                    <option value="retail">Retail</option>
+                                    <option value="logistics">Logistics</option>
+                                    <option value="healthcare">Healthcare</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Company Size *</label>
+                                <select required>
+                                    <option value="">Select Size</option>
+                                    <option value="startup">Startup (1-50)</option>
+                                    <option value="small">Small (51-200)</option>
+                                    <option value="medium">Medium (201-1000)</option>
+                                    <option value="large">Large (1000+)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Company Website</label>
+                                <input type="url" placeholder="https://www.company.com">
+                            </div>
+                            <div class="form-group">
+                                <label>Phone Number</label>
+                                <input type="tel" value="+91 9876543210">
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" value="hr@company.com">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>About Company</h3>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea rows="6" placeholder="Tell candidates about your company...">We are a leading technology solutions provider dedicated to innovation and excellence.</textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Office Location</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Address</label>
+                                <input type="text" value="123 Tech Street, Bangalore" placeholder="Street Address">
+                            </div>
+                            <div class="form-group">
+                                <label>City</label>
+                                <input type="text" value="Bangalore" placeholder="City">
+                            </div>
+                            <div class="form-group">
+                                <label>State</label>
+                                <input type="text" value="Karnataka" placeholder="State">
+                            </div>
+                            <div class="form-group">
+                                <label>Postal Code</label>
+                                <input type="text" value="560001" placeholder="Postal Code">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn-primary btn-large" id="saveCompanyBtn">Save Changes</button>
+                </div>
+            </div>
+
+            <!-- Support Page -->
+            <div id="support-page" class="page">
+                <div class="page-header">
+                    <h1>Support & Help</h1>
+                    <p>Get help with your account</p>
+                </div>
+
+                <div class="faq-section-emp">
+                    <h2>Frequently Asked Questions</h2>
+                    <div class="faq-list">
+                        <div class="faq-item">
+                            <h4 class="faq-question">How do I post a job?</h4>
+                            <p class="faq-answer">Go to "Post New Job" from the sidebar, fill in all the required details, and click "Publish Job". Your job will be live immediately.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h4 class="faq-question">How do I manage applicants?</h4>
+                            <p class="faq-answer">Go to "Applicants" section to view all candidates who applied. You can filter by job and status, and shortlist or reject candidates.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h4 class="faq-question">Can I edit a job after posting?</h4>
+                            <p class="faq-answer">Yes, go to "My Jobs" and click on the job you want to edit. You can update any details or close the job if needed.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h4 class="faq-question">How do candidates apply?</h4>
+                            <p class="faq-answer">Candidates can see your posted jobs, view details, and click "Apply Now". Their applications will appear in your Applicants section.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h4 class="faq-question">Can I close a job posting?</h4>
+                            <p class="faq-answer">Yes, from "My Jobs" click "Close Job". You can always reopen it later if needed.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="support-contact-emp">
+                    <h2>Need Help?</h2>
+                    <p>Our support team is here to assist you</p>
+                    <button class="btn-primary" id="contactSupportBtn">Contact Support</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal" id="applicantDetailModal">
+        <div class="modal-content modal-large">
+            <span class="close" id="closeApplicantModal">&times;</span>
+            <div id="applicantDetailContent">
+                <!-- Applicant details will be inserted here -->
             </div>
         </div>
     </div>
 
-    <!-- Candidate Profile Modal -->
-    <div class="modal" id="candidateModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Candidate Profile</h2>
-                <button class="modal-close" onclick="closeCandidateModal()">&times;</button>
-            </div>
-            <div id="candidateDetails"></div>
-            <div style="margin-top: 24px; display: flex; gap: 12px;">
-                <button class="btn btn-primary" onclick="approveCandidate()">Approve</button>
-                <button class="btn btn-secondary" onclick="closeCandidateModal()">Close</button>
-            </div>
+    <!-- Post Job Modal (for quick posting) -->
+    <div class="modal" id="postJobModal">
+        <div class="modal-content modal-large">
+            <span class="close" id="closePostJobModal">&times;</span>
+            <h3>Post a New Job</h3>
+            <p>Redirect to full form or quick post</p>
         </div>
     </div>
 
